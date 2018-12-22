@@ -1,0 +1,32 @@
+{
+  "name"        : "",
+  "version"     : "1.0",
+  "description" : "",
+  "readme"      : "",
+  "type"        : "library",
+  "time"        : "",
+  "support"     : {
+	"email"  : "varunsridharan23@gmail.com",
+	"docs"   : "",
+	"forum"  : "",
+	"irc"    : "",
+	"issues" : "",
+	"rss"    : "",
+	"source" : "",
+	"wiki"   : ""
+  },
+  "homepage"    : "",
+  "license"     : "GPL-3.0-or-later",
+  "keywords"    : [ ],
+  "autoload"    : {
+	"files" : [ ]
+  },
+  "authors"     : [
+	{
+	  "name"     : "Varun Sridharan",
+	  "email"    : "varunsridharan23@gmail.com",
+	  "homepage" : "http://varunsridharan.in",
+	  "role"     : "Developer"
+	}
+  ]
+}
