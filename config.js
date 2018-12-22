@@ -1,6 +1,28 @@
+let $single_func = ( $file_name ) => {
+	return {
+		dist: './dist/spinners/',
+		conact: $file_name,
+		scss: true,
+		sourcemap: false,
+		watch: [ './src/*.*', './src/spinners/*.scss' ]
+	};
+};
+
 let $_json          = {};
 $_json.project_name = 'css-spinners';
-$_json.scss         = {};
+$_json.scss         = {
+	'./src/all-spinner.scss': {
+		dist: './dist/',
+		conact: 'all-spinner.min.css',
+		scss: true,
+		sourcemap: false,
+		watch: [ './src/*.*', './src/spinners/*.scss' ]
+	},
+	'./src/spinners/border.scss': $single_func( 'border.css' ),
+	'./src/spinners/bubble.scss': $single_func( 'bubble.css' ),
+	'./src/spinners/grow.scss': $single_func( 'grow.css' ),
+	'./src/spinners/round.scss': $single_func( 'round.css' )
+};
 $_json.js           = false;
 $_json.wppot        = false;
 
