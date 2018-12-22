@@ -1,0 +1,122 @@
+.cp-wrapper {
+	text-align: center;
+	margin: 45px auto;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1 {
+	color: #00ACC1;
+	font-size: 2.8em;
+}
+
+h1 span {
+	color: #00838F;
+}
+
+p {
+	color: #4a5b6c;
+	font-size: 1.2em;
+}
+
+p.credits {
+	font-size: 1em;
+}
+
+p.credits a {
+	margin: 0px;
+}
+
+a:link, a:active, a:visited {
+	color: #3F51B5;
+	text-decoration: none;
+	font-size: 1em;
+	text-transform: uppercase;
+	border-bottom: dashed 1px #3F51B5;
+	margin: 0px 10px;
+}
+
+a:hover {
+	border-bottom: none;
+}
+
+.cp-spinners {
+	margin: 10px auto;
+}
+
+.cp-spinner-block {
+	display: inline-block;
+	width: 40%;
+	margin: 40px 20px;
+}
+
+.cp-spinner-block span {
+	color: #4a5b6c;
+	display: block;
+	padding: 5px 0px;
+}
+
+.cp-spinner-block pre {
+	font-size: .75em;
+	background-color: #f0f0f0;
+	padding: 4px 7px;
+	border-radius: 2px;
+	font-family: "Lucida Console", Monaco, monospace;
+	display: inline-block;
+	white-space: pre-wrap;
+}
+
+.cp-spinner-block.dark {
+	background: #4b4b4b;
+	margin-top: 20px;
+	padding-top: 20px;
+}
+
+.cp-spinner-block.dark span {
+	color: white;
+}
+
+@media only screen and (max-width: 1024px) {
+	.cp-wrapper {
+		width: 100%;
+	}
+
+	.cp-spinner-block {
+		display: block;
+		width: 90%;
+		margin: 40px 5%;
+	}
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1400px) {
+	.cp-wrapper {
+		width: 70%;
+	}
+
+	.cp-spinner-block {
+		margin: 40px auto;
+	}
+}
+
+@media only screen and (min-width: 1500px) {
+	.cp-wrapper {
+		width: 90%;
+	}
+
+	.cp-spinner-block {
+		display: inline-block;
+		width: 30%;
+		margin: 40px 20px;
+	}
+}
+
+@media only screen and (min-width: 1700px) {
+	.cp-wrapper {
+		width: 70%;
+	}
+
+	.cp-spinner-block {
+		display: inline-block;
+		width: 30%;
+		margin: 40px 20px;
+	}
+}
