@@ -1,0 +1,24 @@
+@import "../variables";
+
+@keyframes #{$classname}-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.#{$classname} {
+  display:            inline-block;
+  width:              $spinner-width;
+  height:             $spinner-height;
+  vertical-align:     text-bottom;
+  border:             $spinner-border-width solid currentColor;
+  border-right-color: transparent;
+  border-radius:      50%;
+  animation:          #{$classname}-border .75s linear infinite;
+
+  &.sm {
+    width:        $spinner-width-sm;
+    height:       $spinner-height-sm;
+    border-width: $spinner-border-width-sm;
+  }
+}

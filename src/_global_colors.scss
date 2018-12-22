@@ -1,0 +1,7 @@
+.#{$classname}, .#{$classname}-grow {
+  @each $color, $value in $theme-colors {
+    &.#{$color} {
+      color: $value;
+    }
+  }
+}

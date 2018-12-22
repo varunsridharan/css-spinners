@@ -1,0 +1,13 @@
+@mixin bounding-box($width, $height) {
+  width:      $width;
+  height:     $height;
+  display:    inline-block;
+  box-sizing: border-box;
+}
+
+@mixin border($borderWidth, $top, $right, $bottom, $left) {
+  border-top:    solid $borderWidth $top;
+  border-right:  solid $borderWidth $right;
+  border-bottom: solid $borderWidth $bottom;
+  border-left:   solid $borderWidth $left;
+}

@@ -1,0 +1,43 @@
+@import "../variables";
+
+@keyframes #{$classname}-round {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.#{$classname}-round {
+  position: relative;
+  @include bounding-box(48px, 48px);
+
+  &:before {
+    border-radius: 50%;
+    content:       " ";
+    @include bounding-box(48px, 48px);
+    @include border(6px, #bababa, #bababa, #bababa, #bababa);
+    position:      absolute;
+    top:           0;
+    left:          0;
+  }
+
+  &:after {
+    border-radius: 50%;
+    content:       " ";
+    @include bounding-box(48px, 48px);
+    @include border(6px, #F56151, transparent, transparent, transparent);
+    position:      absolute;
+    top:           0;
+    left:          0;
+    animation:     #{$classname}-round 1s ease-in-out infinite;
+  }
+
+  @each $color, $value in $theme-colors {
+    &.#{$color}:after {
+      border-top-color: $value;
+    }
+  }
+}
+

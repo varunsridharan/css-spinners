@@ -1,0 +1,62 @@
+@import "../variables";
+
+@keyframes #{$classname}-skeleton {
+  0% {
+    transform: rotate(0deg);
+    opacity:   1;
+  }
+  50% {
+    opacity: .7;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity:   1;
+  }
+}
+
+
+.#{$classname}-skeleton {
+  border-radius: 50%;
+  @include border(6px, #F56151, transparent, transparent, transparent);
+  @include bounding-box(48px, 48px);
+  position:      relative;
+  animation:     #{$classname}-skeleton 1s linear infinite;
+
+  &:before {
+    border-radius: 50%;
+    content:       " ";
+    @include bounding-box(48px, 48px);
+    @include border(6px, transparent, transparent, transparent, #F56151);
+    position:      absolute;
+    top:           -6px;
+    left:          -6px;
+    transform:     rotateZ(-30deg);
+  }
+
+  &:after {
+    border-radius: 50%;
+    content:       " ";
+    @include bounding-box(48px, 48px);
+    @include border(6px, transparent, #F56151, transparent, transparent);
+    position:      absolute;
+    top:           -6px;
+    right:         -6px;
+    transform:     rotateZ(30deg);
+  }
+
+  @each $color, $value in $theme-colors {
+    &.#{$color} {
+      border-top-color: $value;
+
+      &:before {
+        border-left-color: $value;
+      }
+
+      &:after {
+        border-right-color: $value;
+      }
+    }
+  }
+}
+
+

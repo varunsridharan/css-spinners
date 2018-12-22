@@ -1,0 +1,82 @@
+@import "../variables";
+
+.#{$classname}-bubble {
+  border-radius: 50%;
+  @include bounding-box(24px, 24px);
+  background:    #58bd55;
+  animation:     #{$classname}-bubble 1s linear infinite;
+
+  &:before {
+    border-radius:    50%;
+    content:          " ";
+    @include bounding-box(24px, 24px);
+    background-color: #58bd55;
+    position:         absolute;
+    left:             -30px;
+    animation:        #{$classname}-bubble-before 1s ease-in-out infinite;
+  }
+
+  &:after {
+    border-radius:    50%;
+    content:          " ";
+    @include bounding-box(24px, 24px);
+    background-color: #58bd55;
+    position:         absolute;
+    right:            -30px;
+    animation:        #{$classname}-bubble-after 1s ease-in-out infinite;
+  }
+
+  @each $color, $value in $theme-colors {
+    &.#{$color}:after, &.#{$color}:before, &.#{$color} {
+      background-color: $value;
+    }
+  }
+}
+
+/*Bubble Spinner Animation*/
+@keyframes #{$classname}-bubble {
+  0% {
+    opacity:   .5;
+    transform: scale(1) translateX(0px);
+  }
+  25% {
+    opacity:   1;
+    transform: scale(1.1) translateX(-15px);
+  }
+  50% {
+    opacity:   1;
+    transform: scale(1.2) translateX(15px);
+  }
+  100% {
+    opacity:   .5;
+    transform: scale(1) translateX(0px);
+  }
+}
+
+@keyframes #{$classname}-bubble-before {
+  0% {
+    opacity:   .5;
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50%, 100% {
+    opacity:   1;
+    transform: scale(1);
+  }
+}
+
+@keyframes #{$classname}-bubble-after {
+  0%, 50% {
+    opacity:   .5;
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  75%, 100% {
+    opacity:   1;
+    transform: scale(1);
+  }
+}
