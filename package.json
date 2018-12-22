@@ -1,0 +1,37 @@
+{
+  "name": "css-spinners",
+  "version": "1.0.0",
+  "description": "Collections of CSS Loading Indicators / Spinners",
+  "main": "gulpfile.js",
+  "scripts": {
+	"test": "echo \"Error: no test specified\" && exit 1",
+	"watch": "gulp watch"
+  },
+  "homepage": "https://github.com/varunsridharan/css-spinners",
+  "author": {
+	"name": "Varun Sridharan",
+	"email": "varunsridharan23@gmail.com",
+	"url": "http://varunsridharan.in"
+  },
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/varunsridharan/css-spinners"
+  },
+  "engines": {
+	"node": ">= 0.8.0"
+  },
+  "license": "GPL-3.0",
+  "devDependencies": {
+	"gulp": "^3.9.1",
+	"gulp-autoprefixer": "^6.0.0",
+	"gulp-clean-css": "^3.10.0",
+	"gulp-combine-files": "^1.0.3",
+	"gulp-concat": "^2.6.1",
+	"gulp-notify": "^3.2.0",
+	"gulp-sass": "^4.0.2",
+	"gulp-sourcemaps": "^2.6.4",
+	"gulp-uglify": "^3.0.1",
+	"gulp-util": "^3.0.8",
+
+  }
+}
