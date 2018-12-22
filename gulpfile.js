@@ -1,64 +1,71 @@
-const $vs_boilerplate_v = "1.2.0";
-const $rollup           = require( 'gulp-better-rollup' );
-const $rollup_babel     = require( 'rollup-plugin-babel' );
-const $rollup_resolver  = require( 'rollup-plugin-node-resolve' );
-const $gulp             = require( 'gulp' ),
-	  $util             = require( 'gulp-util' ),
-	  $scss             = require( 'gulp-sass' ),
-	  $notify           = require( 'gulp-notify' ),
-	  $runSequence      = require( 'run-sequence' ),
-	  $minify_css       = require( 'gulp-clean-css' ),
-	  $babel            = require( 'gulp-babel' ),
-	  $concat           = require( 'gulp-concat' ),
-	  $uglify           = require( 'gulp-uglify' ),
-	  $autoprefixer     = require( 'gulp-autoprefixer' ),
-	  $sourcemaps       = require( 'gulp-sourcemaps' ),
-	  $webpack          = require( 'webpack-stream' ),
-	  $parcel           = require( 'gulp-parcel' ),
-	  $combine_files    = require( 'gulp-combine-files' ),
-	  $wppot            = require( 'gulp-wp-pot' ),
-	  $path             = require( 'path' ),
-	  $revert_path      = require( 'gulp-revert-path' );
-let $config             = require( './config.js' );
-let $is_config_watched  = false;
-let $current_task       = false;
-let $gulpfile_reload;
-let $watch_lists        = {};
+/* global: console */
+const $vs_boilerplate_v = '1.2.0',
+	  vsp_load_module   = ( $module, $defaults = false ) => {
+		  try {
+			  $module = require( $module );
+		  } catch( e ) {
+			  return $defaults;
+		  }
+		  return $module;
+	  },
+	  $rollup           = vsp_load_module( 'gulp-better-rollup' ),
+	  $rollup_babel     = vsp_load_module( 'rollup-plugin-babel' ),
+	  $rollup_resolver  = vsp_load_module( 'rollup-plugin-node-resolve' ),
+	  $gulp             = vsp_load_module( 'gulp' ),
+	  $util             = vsp_load_module( 'gulp-util' ),
+	  $scss             = vsp_load_module( 'gulp-sass' ),
+	  $notify           = vsp_load_module( 'gulp-notify' ),
+	  $runSequence      = vsp_load_module( 'run-sequence' ),
+	  $minify_css       = vsp_load_module( 'gulp-clean-css' ),
+	  $babel            = vsp_load_module( 'gulp-babel' ),
+	  $concat           = vsp_load_module( 'gulp-concat' ),
+	  $uglify           = vsp_load_module( 'gulp-uglify' ),
+	  $autoprefixer     = vsp_load_module( 'gulp-autoprefixer' ),
+	  $sourcemaps       = vsp_load_module( 'gulp-sourcemaps' ),
+	  $webpack          = vsp_load_module( 'webpack-stream' ),
+	  $parcel           = vsp_load_module( 'gulp-parcel' ),
+	  $combine_files    = vsp_load_module( 'gulp-combine-files' ),
+	  $wppot            = vsp_load_module( 'gulp-wp-pot' ),
+	  $path             = vsp_load_module( 'path' ),
+	  $revert_path      = vsp_load_module( 'gulp-revert-path' );
+let $current_task       = false,
+	$watch_lists        = {},
+	$config             = vsp_load_module( './config.js' ),
+	$is_config_watched  = false;
 
 try {
-	const $custom_gulp = require( './gulp-custom.js' );
+	require( './gulp-custom.js' );
 } catch( e ) {
 
 }
 
-const watch_config = () => {
-	if( false === $is_config_watched && false !== $current_task ) {
-		$gulp.watch( './config.js', () => {
-			let $_config = false;
-			try {
-				delete require.cache[ require.resolve( './config.js' ) ];
-				$_config = require( './config.js' );
-			} catch( e ) {
-				console.log( e );
-			}
+const watch_config        = () => {
+		  if( false === $is_config_watched && false !== $current_task ) {
+			  $gulp.watch( './config.js', () => {
+				  let $_config = null;
+				  try {
+					  delete require.cache[ require.resolve( './config.js' ) ];
+					  $_config = require( './config.js' );
+				  } catch( e ) {
+					  console.log( e );
+				  }
 
-			if( false !== $_config ) {
-				$config = $_config;
-				$runSequence( $current_task );
-				console.log( 'Config Updated !' );
-			}
-		} );
-		$is_config_watched = true;
-	}
-};
-
-const vs_watch_js         = ( $is_js_dev = false ) => {
+				  if( false !== $_config ) {
+					  $config = $_config;
+					  $runSequence( $current_task );
+					  console.log( 'Config Updated !' );
+				  }
+			  } );
+			  $is_config_watched = true;
+		  }
+	  },
+	  vs_watch_js         = ( $is_js_dev = false ) => {
 		  for( let $src in $config.js ) {
 			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
-				  $gulp.watch( $src, ( a, b ) => vs_compile_js( $cwd( a[ 'path' ] ), true, $is_js_dev ) );
+				  $gulp.watch( $src, ( a ) => vs_compile_js( $cwd( a.path ), true, $is_js_dev ) );
 				  $watch_lists[ $src ] = true;
-				  if( false === isUndefined( $config.js[ $src ][ 'watch' ] ) ) {
-					  $gulp.watch( $config.js[ $src ][ 'watch' ], () => vs_compile_js( $src, true, $is_js_dev ) );
+				  if( false === isUndefined( $config.js[ $src ].watch ) ) {
+					  $gulp.watch( $config.js[ $src ].watch, () => vs_compile_js( $src, true, $is_js_dev ) );
 				  }
 
 			  }
@@ -67,10 +74,10 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 	  vs_watch_scss       = ( $is_scss_dev = false ) => {
 		  for( let $src in $config.scss ) {
 			  if( true === isUndefined( $watch_lists[ $src ] ) ) {
-				  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a[ 'path' ] ), true, $is_scss_dev ) );
+				  $gulp.watch( $src, ( a, b ) => vs_compile_scss( $cwd( a.path ), true, $is_scss_dev ) );
 				  $watch_lists[ $src ] = true;
-				  if( true !== isUndefined( $config.scss[ $src ][ 'watch' ] ) ) {
-					  $gulp.watch( $config.scss[ $src ][ 'watch' ], () => vs_compile_scss( $src, true, $is_scss_dev ) );
+				  if( true !== isUndefined( $config.scss[ $src ].watch ) ) {
+					  $gulp.watch( $config.scss[ $src ].watch, () => vs_compile_scss( $src, true, $is_scss_dev ) );
 				  }
 			  }
 		  }
@@ -133,12 +140,12 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 						  let $dist = $return.dist;
 						  if( false === isUndefined( $_d.dist ) ) {
 							  $dist = $_d.dist;
-							  delete $_d[ 'dist' ];
+							  delete $_d.dist;
 						  }
 
 						  if( false === isUndefined( $_d.src ) ) {
 							  $return.src = $_d.src;
-							  delete $_d[ 'src' ];
+							  delete $_d.src;
 						  }
 						  for( let $k in $defaults ) {
 							  if( isUndefined( $_d[ $k ] ) ) {
@@ -201,7 +208,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 	  vs_compile_all_scss = function( $current_loop, $is_dev ) {
 		  const $scss_files_keys = Object.keys( $config.scss );
 		  if( false === isUndefined( $scss_files_keys[ $current_loop ] ) ) {
-			  vs_compile_scss( $scss_files_keys[ $current_loop ], true, $is_dev )
+			  vs_compile_scss( $scss_files_keys[ $current_loop ], true, $is_dev );
 			  vs_compile_all_scss( $current_loop + 1, $is_dev );
 		  }
 	  },
@@ -241,6 +248,9 @@ VS_Gulp.prototype.option        = function( $key, $config_key ) {
 	return vs_file_option( this.src, this.dist, $key, $config_key, this.is_dev );
 };
 VS_Gulp.prototype.sourcemap     = function( $save ) {
+	if( false === $sourcemaps ) {
+		return this;
+	}
 	let $is_save = ( false === isUndefined( $save ) );
 	let $options = this.option( 'sourcemap', 'sourcemap' );
 
@@ -255,6 +265,9 @@ VS_Gulp.prototype.sourcemap     = function( $save ) {
 	return this;
 };
 VS_Gulp.prototype.combine_files = function() {
+	if( false === $combine_files ) {
+		return this;
+	}
 	let $options = this.option( 'combine_files', 'combine_files' );
 	if( this.is_active( $config.status.combine_files, $options.options ) ) {
 		this.instance = this.instance.pipe( $combine_files( $options.options ) );
@@ -263,6 +276,9 @@ VS_Gulp.prototype.combine_files = function() {
 	return this;
 };
 VS_Gulp.prototype.scss          = function() {
+	if( false === $scss ) {
+		return this;
+	}
 	let $options = this.option( 'scss', 'scss' );
 	if( this.is_active( $config.status.scss, $options.options ) ) {
 		this.instance = this.instance.pipe( $scss( $options.options ) )
@@ -274,6 +290,9 @@ VS_Gulp.prototype.scss          = function() {
 	return this;
 };
 VS_Gulp.prototype.autoprefixer  = function() {
+	if( false === $autoprefixer ) {
+		return this;
+	}
 	let $options = this.option( 'autoprefixer', 'autoprefixer' );
 	if( this.is_active( $config.status.autoprefixer, $options.options ) ) {
 		this.instance = this.instance.pipe( $autoprefixer( $options.options ) )
@@ -285,6 +304,9 @@ VS_Gulp.prototype.autoprefixer  = function() {
 
 };
 VS_Gulp.prototype.concat        = function() {
+	if( false === $concat ) {
+		return this;
+	}
 	let $options = this.option( 'concat', 'concat' );
 	if( this.is_active( $config.status.concat, $options.options ) ) {
 		if( isObject( $options.options ) && true !== isUndefined( $options.options.filename ) ) {
@@ -306,6 +328,9 @@ VS_Gulp.prototype.concat        = function() {
 	return this;
 };
 VS_Gulp.prototype.minify        = function() {
+	if( false === $minify_css ) {
+		return this;
+	}
 	let $options = this.option( 'minify', 'minify' );
 	if( this.is_active( $config.status.minify, $options.options ) ) {
 		this.instance = this.instance.pipe( $minify_css( $options.options.args, $options.options.callback ) )
@@ -315,6 +340,9 @@ VS_Gulp.prototype.minify        = function() {
 	return this;
 };
 VS_Gulp.prototype.webpack       = function() {
+	if( false === $webpack ) {
+		return this;
+	}
 	let $options = this.option( 'webpack', 'webpack' );
 	if( this.is_active( $config.status.webpack, $options.options ) ) {
 		this.instance = this.instance.pipe( $revert_path() );
@@ -325,6 +353,9 @@ VS_Gulp.prototype.webpack       = function() {
 	return this;
 };
 VS_Gulp.prototype.babel         = function() {
+	if( false === $babel ) {
+		return this;
+	}
 	let $options = this.option( 'babel', 'babel' );
 	if( this.is_active( $config.status.babel, $options.options ) ) {
 		this.instance = this.instance.pipe( $babel( $options.options ) )
@@ -334,6 +365,9 @@ VS_Gulp.prototype.babel         = function() {
 	return this;
 };
 VS_Gulp.prototype.parcel        = function() {
+	if( false === $parcel ) {
+		return this;
+	}
 	let $options = this.option( 'parcel', 'parcel' );
 	if( this.is_active( $config.status.parcel, $options.options ) ) {
 		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
@@ -343,6 +377,9 @@ VS_Gulp.prototype.parcel        = function() {
 	return this;
 };
 VS_Gulp.prototype.rollup        = function() {
+	if( false === $rollup ) {
+		return this;
+	}
 	let $options = this.option( 'rollup', 'rollup' );
 	if( this.is_active( $config.status.rollup, $options.options ) ) {
 		this.instance = this.instance.pipe( $rollup( {
@@ -359,6 +396,9 @@ VS_Gulp.prototype.rollup        = function() {
 	return this;
 };
 VS_Gulp.prototype.uglify        = function() {
+	if( false === $uglify ) {
+		return this;
+	}
 	let $options = this.option( 'uglify', 'uglify' );
 	if( this.is_active( $config.status.uglify, $options.options ) ) {
 		this.instance = this.instance.pipe( $uglify( $options.options ) )
@@ -370,7 +410,7 @@ VS_Gulp.prototype.uglify        = function() {
 VS_Gulp.prototype.save          = function() {
 	let $dest   = ( isObject( this.dist ) ) ? this.dist.dist : this.dist;
 	let $return = false;
-	if( typeof $dest !== "undefined" ) {
+	if( typeof $dest !== 'undefined' ) {
 		this.instance = this.instance.pipe( $gulp.dest( $dest ) );
 		$return       = this.instance;
 		this.notice( 'Saved' );
@@ -385,6 +425,9 @@ VS_Gulp.prototype.save          = function() {
 	return $return;
 };
 VS_Gulp.prototype.wppot         = function() {
+	if( false === $wppot ) {
+		return this;
+	}
 	let $_srcs = this.option( 'src', false );
 	if( $_srcs.options !== undefined ) {
 		this.instance = $gulp.src( $_srcs.options );
@@ -393,7 +436,6 @@ VS_Gulp.prototype.wppot         = function() {
 	let $_wppot = this.option( 'wppot', 'wppot' );
 
 	if( $_wppot.options !== undefined ) {
-		console.log( $_wppot.options );
 		this.instance = this.instance.pipe( $wppot( $_wppot.options ) )
 							.on( 'error', $util.log );
 		this.notice( 'WPPot Generated.' );
@@ -402,15 +444,18 @@ VS_Gulp.prototype.wppot         = function() {
 };
 
 // Run Scss Compiler.
-$gulp.task( 'scss', ( cb ) => vs_compile_all_scss( 0 ) );
-$gulp.task( 'js', ( cb ) => vs_compile_all_js( 0 ) );
-$gulp.task( 'scss:dev', ( cb ) => vs_compile_all_scss( 0, true ) );
-$gulp.task( 'js:dev', ( cb ) => vs_compile_all_js( 0, true ) );
+$gulp.task( 'scss', () => vs_compile_all_scss( 0 ) );
+$gulp.task( 'js', () => vs_compile_all_js( 0 ) );
+$gulp.task( 'scss:dev', () => vs_compile_all_scss( 0, true ) );
+$gulp.task( 'js:dev', () => vs_compile_all_js( 0, true ) );
 
-$gulp.task( 'wppot', ( cb ) => {
+// Runs WPPot Addon.
+$gulp.task( 'wppot', () => {
 	if( typeof $config.wppot === 'object' ) {
-		for( let $key in $config.wppot ) {
-			vs_compile_wppot( $key, false, false );
+		if( $config.wppot ) {
+			for( let $key in $config.wppot ) {
+				vs_compile_wppot( $key, false, false );
+			}
 		}
 	}
 } );
@@ -442,6 +487,7 @@ $gulp.task( 'watch', function( callback ) {
 	callback();
 } );
 
+// Custom Watch Function.
 $gulp.task( 'watch:scss:dev', function( callback ) {
 	if( false === $current_task ) {
 		$current_task = 'watch:scss:dev';
