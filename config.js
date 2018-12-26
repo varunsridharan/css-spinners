@@ -21,7 +21,8 @@ $_json.scss         = {
 	'./src/spinners/border.scss': $single_func( 'border.css' ),
 	'./src/spinners/bubble.scss': $single_func( 'bubble.css' ),
 	'./src/spinners/grow.scss': $single_func( 'grow.css' ),
-	'./src/spinners/round.scss': $single_func( 'round.css' )
+	'./src/spinners/round.scss': $single_func( 'round.css' ),
+	'./src/spinners/skeleton.scss': $single_func( 'skeleton.css' )
 };
 $_json.js           = false;
 $_json.wppot        = false;

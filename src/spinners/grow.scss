@@ -23,4 +23,6 @@
     width:  $spinner-width-sm;
     height: $spinner-height-sm;
   }
+
+  @include global_color($theme-colors);
 }

@@ -11,3 +11,11 @@
   border-bottom: solid $borderWidth $bottom;
   border-left:   solid $borderWidth $left;
 }
+
+@mixin global_color($theme-colors) {
+  @each $color, $value in $theme-colors {
+    &.#{$color} {
+      color: $value;
+    }
+  }
+}
