@@ -1,0 +1,63 @@
+@-webkit-keyframes spin-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-border {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spin-border 0.75s linear infinite;
+  animation: spin-border 0.75s linear infinite;
+}
+
+.spin.sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+.spin.primary {
+  color: #007bff;
+}
+
+.spin.secondary {
+  color: #6c757d;
+}
+
+.spin.success {
+  color: #28a745;
+}
+
+.spin.info {
+  color: #17a2b8;
+}
+
+.spin.warning {
+  color: #ffc107;
+}
+
+.spin.danger {
+  color: #dc3545;
+}
+
+.spin.light {
+  color: #f8f9fa;
+}
+
+.spin.dark {
+  color: #343a40;
+}

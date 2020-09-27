@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>CSSPIN - CSS Spinners and Loaders</title>
-	<link href="../dist/all-spinner.css" rel="stylesheet" type="text/css">
+	<link href="../dist/all.css" rel="stylesheet" type="text/css">
 	<link href="../demo/demo.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet" type="text/css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,14 +11,16 @@
 	<meta name="twitter:title" content="CSSPIN - CSS Spinners and Loaders">
 	<meta name="twitter:description"
 		  content="CSS Spinners and Loaders - Modular, Customizable and Single HTML Element Code">
-	<meta name="twitter:image:src" content="http://webkul.com/blog/wp-content/uploads/2016/11/csspin-poster.png">
-	<meta name="twitter:creator" content="@webkul">
-	<meta name="twitter:url" content="https://webkul.github.io/csspin/">
+	<meta name="twitter:image:src"
+		  content="https://raw.githubusercontent.com/varunsridharan/css-spinners/master/demo/simple.jpg">
+	<meta name="twitter:creator" content="@varunsridharan2">
+	<meta name="twitter:url" content="https://varunsridharan.github.io/css-spinners/">
 	<meta property="og:title" content="CSSPIN - CSS Spinners and Loaders">
 	<meta property="og:description"
 		  content="CSS Spinners and Loaders - Modular, Customizable and Single HTML Element Code">
-	<meta property="og:url" content="https://webkul.github.io/csspin/">
-	<meta property="og:image" content="http://webkul.com/blog/wp-content/uploads/2016/11/csspin-poster.png">
+	<meta property="og:url" content="https://varunsridharan.github.io/css-spinners/">
+	<meta property="og:image"
+		  content="https://raw.githubusercontent.com/varunsridharan/css-spinners/master/demo/simple.jpg">
 </head>
 <body>
 <!--CSSPin Wrapper-->
@@ -28,7 +30,7 @@
 	<h1>CSSSP<span>INNER</span></h1>
 	<p>CSS Spinners and Loaders - Modular, Customizable and Single HTML Element Code</p>
 	<a href="http://github.com/varunsridharan/css-spinners" target="_blank">View on Github</a>
-	<a href="http://bit.ly/csspin-tweet" target=_blank>Tweet</a>
+	<a href="https://sva.onl/css-spinner-tweet" target=_blank>Tweet</a>
 	<!--//Header-->
 
 	<?php

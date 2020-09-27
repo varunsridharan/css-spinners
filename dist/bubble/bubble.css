@@ -1,0 +1,187 @@
+.spin-bubble {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #58bd55;
+  -webkit-animation: spin-bubble 1s linear infinite;
+  animation: spin-bubble 1s linear infinite;
+}
+
+.spin-bubble:before {
+  border-radius: 50%;
+  content: " ";
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #58bd55;
+  position: absolute;
+  left: -30px;
+  -webkit-animation: spin-bubble-before 1s ease-in-out infinite;
+  animation: spin-bubble-before 1s ease-in-out infinite;
+}
+
+.spin-bubble:after {
+  border-radius: 50%;
+  content: " ";
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #58bd55;
+  position: absolute;
+  right: -30px;
+  -webkit-animation: spin-bubble-after 1s ease-in-out infinite;
+  animation: spin-bubble-after 1s ease-in-out infinite;
+}
+
+.spin-bubble.primary:after, .spin-bubble.primary:before, .spin-bubble.primary {
+  background-color: #007bff;
+}
+
+.spin-bubble.secondary:after, .spin-bubble.secondary:before, .spin-bubble.secondary {
+  background-color: #6c757d;
+}
+
+.spin-bubble.success:after, .spin-bubble.success:before, .spin-bubble.success {
+  background-color: #28a745;
+}
+
+.spin-bubble.info:after, .spin-bubble.info:before, .spin-bubble.info {
+  background-color: #17a2b8;
+}
+
+.spin-bubble.warning:after, .spin-bubble.warning:before, .spin-bubble.warning {
+  background-color: #ffc107;
+}
+
+.spin-bubble.danger:after, .spin-bubble.danger:before, .spin-bubble.danger {
+  background-color: #dc3545;
+}
+
+.spin-bubble.light:after, .spin-bubble.light:before, .spin-bubble.light {
+  background-color: #f8f9fa;
+}
+
+.spin-bubble.dark:after, .spin-bubble.dark:before, .spin-bubble.dark {
+  background-color: #343a40;
+}
+
+/*Bubble Spinner Animation*/
+@-webkit-keyframes spin-bubble {
+  0% {
+    opacity: .5;
+    -webkit-transform: scale(1) translateX(0px);
+    transform: scale(1) translateX(0px);
+  }
+  25% {
+    opacity: 1;
+    -webkit-transform: scale(1.1) translateX(-15px);
+    transform: scale(1.1) translateX(-15px);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.2) translateX(15px);
+    transform: scale(1.2) translateX(15px);
+  }
+  100% {
+    opacity: .5;
+    -webkit-transform: scale(1) translateX(0px);
+    transform: scale(1) translateX(0px);
+  }
+}
+@keyframes spin-bubble {
+  0% {
+    opacity: .5;
+    -webkit-transform: scale(1) translateX(0px);
+    transform: scale(1) translateX(0px);
+  }
+  25% {
+    opacity: 1;
+    -webkit-transform: scale(1.1) translateX(-15px);
+    transform: scale(1.1) translateX(-15px);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.2) translateX(15px);
+    transform: scale(1.2) translateX(15px);
+  }
+  100% {
+    opacity: .5;
+    -webkit-transform: scale(1) translateX(0px);
+    transform: scale(1) translateX(0px);
+  }
+}
+
+@-webkit-keyframes spin-bubble-before {
+  0% {
+    opacity: .5;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  50%, 100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes spin-bubble-before {
+  0% {
+    opacity: .5;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  25% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  50%, 100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes spin-bubble-after {
+  0%, 50% {
+    opacity: .5;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  75%, 100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes spin-bubble-after {
+  0%, 50% {
+    opacity: .5;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  75%, 100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
