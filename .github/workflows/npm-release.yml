@@ -1,0 +1,59 @@
+name: On Release
+
+env:
+  DIST_LOCATION: "./dist/"
+  VS_WORKFLOW_TYPE: "npm-release"
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish-npm:
+    name: "🚀  NPM Publisher"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📐  Setting Node"
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org
+
+      - name: "📥  Fetching Repository Contents"
+        uses: actions/checkout@master
+
+      - name: "💾  Github Repository Metadata"
+        uses: varunsridharan/action-repository-meta@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "💫  VS Utility"
+        uses: varunsridharan/action-vs-utility@master
+
+      - name: "⚡  Repository - Before Hook"
+        run: |
+          echo " "
+          if [ -f $VS_BEFORE_HOOK_FILE_LOCATION ]; then
+            echo "✅ Before Hook File Found : $VS_BEFORE_HOOK_FILE_LOCATION"
+            sh $VS_BEFORE_HOOK_FILE_LOCATION
+          else
+            echo "⚠️ No Before Hook File Found : $VS_BEFORE_HOOK_FILE_LOCATION"
+          fi
+          echo " "
+
+      - name: "🚀  Publishing Release"
+        run: npm publish ./
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+      - name: "⚡  Repository - After Hook"
+        run: |
+          echo " "
+          if [ -f $VS_AFTER_HOOK_FILE_LOCATION ]; then
+            echo "✅ After Hook File Found : $VS_AFTER_HOOK_FILE_LOCATION"
+            sh $VS_AFTER_HOOK_FILE_LOCATION
+          else
+            echo "⚠️ No After Hook File Found : $VS_AFTER_HOOK_FILE_LOCATION"
+          fi
+          echo " "
