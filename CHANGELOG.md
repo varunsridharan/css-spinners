@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
-## 1.1 - 27/09/2020
+## 1.0.1 - 27/09/2020
 * Migrated To Sofy Builder 
 * Created Dist File For Each & Every Spinner With Min & Unminifed 
 
-## 1.0 - 22/12/2018
+## 1.0.0 - 22/12/2018
 * First Release
